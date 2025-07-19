@@ -1,2 +1,61 @@
-*
-!release/
+# Git
+.git
+.gitignore
+README.md
+LICENSE
+
+# Build artifacts
+release/
+dist/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test files
+*_test.go
+coverage.txt
+*.test
+*.prof
+
+# Development files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Database files
+*.db
+*.db-journal
+
+# Config files (will use environment variables on Fly.io)
+config.yml
+
+# Certificates (will use Fly.io secrets)
+*.pem
+*.p12
+*.p8
+*.json
+
+# CI/CD
+.github/
+
+# Node modules (for gRPC examples)
+node_modules/
+
+# Temporary files
+tmp/
+temp/
+
+# Fly.io specific (don't need in build context)
+fly.toml
+
+# Netlify specific
+netlify.toml
+build.sh
