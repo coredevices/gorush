@@ -1,52 +1,68 @@
-# fly.toml app configuration file
+# fly.toml app configuration file generated for gorush on 2025-07-18T17:31:43-07:00
+#
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
-app = "gorush"
-primary_region = "lax"
+app = 'gorush'
+primary_region = 'lax'
 
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = 'Dockerfile'
 
 [env]
-  # gorush configuration via environment variables
-  GORUSH_CORE_ENABLED = "true"
-  GORUSH_CORE_ADDRESS = "0.0.0.0"
-  GORUSH_CORE_PORT = "8080"
-  GORUSH_ANDROID_ENABLED = "true"
-  GORUSH_IOS_ENABLED = "false"
-  GORUSH_HUAWEI_ENABLED = "false"
-  GORUSH_STAT_ENGINE = "memory"
-  GORUSH_LOG_LEVEL = "info"
+  GORUSH_ANDROID_ENABLED = 'true'
+  GORUSH_CORE_ADDRESS = '0.0.0.0'
+  GORUSH_CORE_ENABLED = 'true'
+  GORUSH_CORE_PORT = '8080'
+  GORUSH_HUAWEI_ENABLED = 'false'
+  GORUSH_IOS_ENABLED = 'false'
+  GORUSH_LOG_LEVEL = 'info'
+  GORUSH_STAT_ENGINE = 'memory'
+  # Tell gorush to look for credentials in environment
+  GORUSH_ANDROID_KEY_PATH = ''
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
 
 [[services]]
+  protocol = 'tcp'
   internal_port = 8080
-  protocol = "tcp"
-  auto_stop_machines = true
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
 
   [[services.ports]]
     port = 80
-    handlers = ["http"]
+    handlers = ['http']
     force_https = true
 
   [[services.ports]]
     port = 443
-    handlers = ["tls", "http"]
+    handlers = ['tls', 'http']
 
   [[services.http_checks]]
-    interval = "15s"
-    timeout = "2s"
-    grace_period = "5s"
-    method = "GET"
-    path = "/healthz"
+    interval = '15s'
+    timeout = '2s'
+    grace_period = '5s'
+    method = 'GET'
+    path = '/healthz'
 
 [checks]
   [checks.api]
-    type = "http"
-    grace_period = "30s"
-    interval = "15s"
-    method = "GET"
-    timeout = "5s"
-    path = "/healthz"
     port = 8080
+    type = 'http'
+    interval = '15s'
+    timeout = '5s'
+    grace_period = '30s'
+    method = 'GET'
+    path = '/healthz'
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
