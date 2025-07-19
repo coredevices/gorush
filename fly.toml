@@ -43,8 +43,10 @@ primary_region = "lax"
 
 [checks]
   [checks.api]
+    type = "http"
     grace_period = "30s"
     interval = "15s"
     method = "GET"
     timeout = "5s"
     path = "/healthz"
+    port = 8080
